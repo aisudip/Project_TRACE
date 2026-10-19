@@ -1,0 +1,48 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_a0536a3e-cf27-405a-b702-4e618be1c38f",
+    "filing_date": "2026-10-17T10:17:54.747301",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Jacqueline Rodriguez, rated high risk, holds three active accounts opened between 2022 and 2024. From February to August 2025, her Business Checking account (ID CUST_0111_ACC_1) received a $76,517.25 incoming wire transfer on July 29, 2025, followed by rapid outgoing wire transfers exceeding $50,000 within three days. Multiple large ATM withdrawals and check deposits lacked counterparty details, alongside repeated ACH debits missing counterparty information. This rapid layering and movement of large funds is inconsistent with her occupation and income, indicating suspicious activity under the Bank Secrecy Act (BSA). The pattern suggests attempts to obscure the source and movement of funds, warranting filing under BSA requirements.",
+    "key_indicators": [
+      "High-value wire transfers with rapid debits",
+      "Repeated ACH transactions with missing counterparty information",
+      "Large ATM withdrawals exceeding typical thresholds",
+      "Large check deposits without counterparty details",
+      "Rapid movement of large funds via wire transfers and check deposits"
+    ],
+    "ai_reasoning": "Strong evidence of rapid, high-value wire transfers followed by multiple large debits, repeated ACH transactions with missing counterparty info, large ATM withdrawals, and check deposits without counterparty details indicate layering and placement stages of money laundering. The patterns strongly match SAR typologies with no mitigating factors identified."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 105,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "e8277fa3-2070-41bd-af58-fb5c8210d201",
+    "processing_date": "2026-10-17T10:17:54.747301",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}
