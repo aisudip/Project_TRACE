@@ -48,7 +48,7 @@ logging.basicConfig(
     datefmt="%H:%M:%S"
 )
 
-logger = logging.getLogger(__name__)
+pylogger = logging.getLogger(__name__)
 
 # ===== IMPLEMENT PYDANTIC SCHEMAS =====
 
@@ -582,9 +582,9 @@ def test_components():
         if str(path) not in sys.path:
             sys.path.insert(0, str(path))
 
-    logger.debug("📁 Python path includes:")
-    logger.debug(f"   📂 src: {src_path}")
-    logger.debug(f"   📂 tests: {tests_path}")
+    pylogger.debug("📁 Python path includes:")
+    pylogger.debug(f"   📂 src: {src_path}")
+    pylogger.debug(f"   📂 tests: {tests_path}")
 
     try:
         # Import and run tests from the test suite
@@ -597,7 +597,7 @@ def test_components():
             TestExplainabilityLogger
         )
 
-        logger.info("✅ Test classes imported successfully!")
+        pylogger.info("✅ Test classes imported successfully!")
 
             
         # Initialize test instances
@@ -608,84 +608,84 @@ def test_components():
         test_loader = TestDataLoader()
         test_logger = TestExplainabilityLogger()
 
-        logger.info("✅ Test initialized successfully!")
+        pylogger.info("✅ Test initialized successfully!")
         
         # Run CustomerData tests
         print("\n👥 Testing CustomerData...")
         try:
             test_customer.test_valid_customer_data()
-            logger.info("  ✅ Valid customer data test passed")
+            pylogger.info("  ✅ Valid customer data test passed")
         except Exception as e:
-            logger.error(f"  ❌ Valid customer data test failed: {e}")
+            pylogger.error(f"  ❌ Valid customer data test failed: {e}")
             
         try:
             test_customer.test_customer_risk_rating_validation()
-            logger.info("  ✅ Risk rating validation test passed")
+            pylogger.info("  ✅ Risk rating validation test passed")
         except Exception as e:
-            logger.error(f"  ❌ Risk rating validation test failed: {e}")
+            pylogger.error(f"  ❌ Risk rating validation test failed: {e}")
         
         # Run AccountData tests
         print("\n🏦 Testing AccountData...")
         try:
             test_account.test_valid_account_data()
-            logger.info("  ✅ Valid account data test passed")
+            pylogger.info("  ✅ Valid account data test passed")
         except Exception as e:
-            logger.error(f"  ❌ Valid account data test failed: {e}")
+            pylogger.error(f"  ❌ Valid account data test failed: {e}")
             
         try:
             test_account.test_account_balance_validation()
-            logger.info("  ✅ Account balance validation test passed")
+            pylogger.info("  ✅ Account balance validation test passed")
         except Exception as e:
-            logger.error(f"  ❌ Account balance validation test failed: {e}")
+            pylogger.error(f"  ❌ Account balance validation test failed: {e}")
         
         # Run TransactionData tests
         print("\n💳 Testing TransactionData...")
         try:
             test_transaction.test_valid_transaction_data()
-            logger.info("  ✅ Valid transaction data test passed")
+            pylogger.info("  ✅ Valid transaction data test passed")
         except Exception as e:
-            logger.error(f"  ❌ Valid transaction data test failed: {e}")
+            pylogger.error(f"  ❌ Valid transaction data test failed: {e}")
             
         try:
             test_transaction.test_transaction_amount_validation()
-            logger.info("  ✅ Transaction amount validation test passed")
+            pylogger.info("  ✅ Transaction amount validation test passed")
         except Exception as e:
-            logger.error(f"  ❌ Transaction amount validation test failed: {e}")
+            pylogger.error(f"  ❌ Transaction amount validation test failed: {e}")
         
         # Run CaseData tests
         print("\n📋 Testing CaseData...")
         try:
             test_case.test_valid_case_creation()
-            logger.info("  ✅ Valid case creation test passed")
+            pylogger.info("  ✅ Valid case creation test passed")
         except Exception as e:
-            logger.error(f"  ❌ Valid case creation test failed: {e}")
+            pylogger.error(f"  ❌ Valid case creation test failed: {e}")
         
         # Run DataLoader tests
         print("\n📊 Testing DataLoader...")
         try:
             test_loader.test_csv_data_loading()
-            logger.info("  ✅ CSV data loading test passed")
+            pylogger.info("  ✅ CSV data loading test passed")
         except Exception as e:
-            logger.error(f"  ❌ CSV data loading test failed: {e}")
+            pylogger.error(f"  ❌ CSV data loading test failed: {e}")
         
         # Run ExplainabilityLogger tests
         print("\n📝 Testing ExplainabilityLogger...")
         try:
             test_logger.test_log_creation()
-            logger.info("  ✅ Log creation test passed")
+            pylogger.info("  ✅ Log creation test passed")
         except Exception as e:
-            logger.error(f"  ❌ Log creation test failed: {e}")
+            pylogger.error(f"  ❌ Log creation test failed: {e}")
             
         try:
             test_logger.test_log_file_writing()
-            logger.info("  ✅ Log file writing test passed")
+            pylogger.info("  ✅ Log file writing test passed")
         except Exception as e:
-            logger.error(f"  ❌ Log file writing test failed: {e}")
+            pylogger.error(f"  ❌ Log file writing test failed: {e}")
             
     except ImportError as e:
-        logger.error(f"❌ Import Error: {e}")
-        logger.error("💡 Make sure your implementation is complete and error-free")
-        logger.error("📝 Run Step 1 first to check basic imports")
+        pylogger.error(f"❌ Import Error: {e}")
+        pylogger.error("💡 Make sure your implementation is complete and error-free")
+        pylogger.error("📝 Run Step 1 first to check basic imports")
 
     print("\n✅ ============== Foundation SAR tests completed successfully! ==============")
         

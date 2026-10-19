@@ -1,0 +1,46 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_bb061330-81cb-4b99-bf1d-4983f50f93b9",
+    "filing_date": "2026-10-19T18:43:54.107875",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "customer_since": "2021-09-05",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Patrick Williams engaged in multiple high-value cash deposits and withdrawals across several branches between August 2 and August 4, 2025, involving amounts ranging from $2,463.16 to $7,762.48 in account CUST_0118_ACC_3, which was closed shortly after. These transactions include structured ATM withdrawals and cash deposits at Branch Downtown Main, Branch Westside Plaza, and Branch Northgate Mall. The pattern of frequent large cash transactions in short periods across multiple locations is indicative of structuring to evade Bank Secrecy Act (BSA) reporting requirements. This suspicious activity is unusual given the customer's occupation as a midwife and consistent medium risk rating, warranting filing under BSA guidelines.",
+    "key_indicators": [
+      "Multiple high-value cash transactions in short periods across branches indicating possible structuring",
+      "Concentration of high-value cash withdrawals and deposits within short periods and multiple locations",
+      "Patterns SP_001 and SP_002 showing multiple high-value ATM withdrawals and large cash deposits"
+    ],
+    "ai_reasoning": "Strong evidence of multiple high-value cash withdrawals and deposits across branches within short periods indicates attempts to avoid reporting thresholds. While money laundering and fraud indicators exist, the structuring patterns are the most prominent and strongly supported by transaction data and regulatory mapping."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 103,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "45fc3ab8-0382-4f86-be34-021b1f3b60fd",
+    "processing_date": "2026-10-19T18:43:54.107875",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

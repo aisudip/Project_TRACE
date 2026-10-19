@@ -1,0 +1,47 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_9a17b46e-185a-41ae-ab06-2f16237c1a0d",
+    "filing_date": "2026-10-19T18:49:22.075278",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Jacqueline Rodriguez, with high-risk rating, maintains three active accounts opened between 2022 and 2024. From February to August 2025, her Business Checking account (ID CUST_0111_ACC_1) exhibited frequent high-value wire transfers, including a $76,517.25 incoming wire on July 29, 2025, followed by multiple outgoing wires totaling over $49,500 within three days. Numerous online transfers and ACH credits/debits lack consistent counterparty or location data. The rapid movement of large funds and absence of clear transactional purpose are unusual given her occupation and income. These patterns indicate suspicious activity consistent with layering typology under the Bank Secrecy Act (BSA), warranting further investigation for potential money laundering.",
+    "key_indicators": [
+      "Frequent high-value wire and online transfers lacking counterparty and location information",
+      "Rapid movement of large funds within short periods",
+      "Multiple high-value ACH credits and debits without consistent counterparty data",
+      "Strong mapping to money laundering layering typology"
+    ],
+    "ai_reasoning": "Strong evidence of layering money laundering is present, including frequent high-value transfers, rapid large fund movements, and lack of counterparty/location data. These indicators collectively support the classification, with no direct evidence of fraud or sanctions violations. The substantial transaction amounts and absence of legitimate explanations reinforce a high confidence in money laundering risk."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 104,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "a320242f-1d4b-4d12-b539-6878d9bf231b",
+    "processing_date": "2026-10-19T18:49:22.075278",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}
