@@ -1,0 +1,47 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_b2de3dfc-3d7d-4218-945b-ffc9f0cb0c91",
+    "filing_date": "2026-10-22T14:49:53.312843",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Michael Stanley conducted rapid large wire transfers in July 2025, including an incoming wire of $98,090.16 to Money Market account CUST_0062_ACC_1 on July 27, followed by four outgoing wires totaling $71,182.08 on July 28-29 to multiple counterparties. Additionally, multiple high-value ATM withdrawals occurred on active Money Market accounts CUST_0062_ACC_1 and CUST_0062_ACC_3 throughout 2025, often lacking counterparty or location details. These transactions exhibit layering characteristics consistent with money laundering typologies under the Bank Secrecy Act (BSA). The rapid movement of large funds and obscured transaction details reduce transparency, making this suspicious activity unusual for the customer's profile.",
+    "key_indicators": [
+      "Rapid movement of large funds via wire transfers",
+      "Multiple high-value ATM withdrawals lacking clear counterparty/location data",
+      "Transactions with missing counterparty information reducing transparency",
+      "Alignment with money laundering SAR typologies with strong and moderate match strengths"
+    ],
+    "ai_reasoning": "Strong evidence of rapid movement of large funds via wire transfers and multiple high-value transactions lacking counterparty details aligns with layering typologies of money laundering. Moderate supporting patterns of structuring and obscured transactions reinforce this classification. No direct illicit intent found, but combined indicators and high transaction volumes justify high confidence."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 97,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "147078e4-19be-4762-aac3-7f0d6723ac1e",
+    "processing_date": "2026-10-22T14:49:53.312843",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

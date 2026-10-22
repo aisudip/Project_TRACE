@@ -1,0 +1,48 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_402f0150-e99b-4cdc-92c2-94066cfd796e",
+    "filing_date": "2026-10-22T14:35:29.695081",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Michael Stanley, with accounts opened between July 2024 and March 2025, engaged in rapid large wire transfers totaling over $98,000 incoming on July 27, 2025, followed by multiple outgoing wire transfers totaling approximately $71,182 on July 28-29, 2025, from Money Market account CUST_0062_ACC_1. Additionally, high-value ATM withdrawals and significant deposits via check and direct deposit were observed. Several transactions lack counterparty information or involve business-like entities without stated purpose. This pattern of rapid movement of funds and obscured counterparties is unusual for this medium-risk customer and indicative of potential layering activity, warranting filing under the Bank Secrecy Act (BSA) for suspicious activity.",
+    "key_indicators": [
+      "Rapid large wire transfers in and out within short timeframes",
+      "High-value ATM withdrawals uncommon for typical customer behavior",
+      "Significant deposits via check and direct deposit",
+      "Frequent transfers with missing counterparty information",
+      "Transactions with business-like counterparties lacking stated purpose"
+    ],
+    "ai_reasoning": "Strong evidence of layering in money laundering is present, including rapid large wire transfers totaling over $170K in three days, high-value ATM withdrawals, and significant deposits. Missing counterparty information and transactions with business-like counterparties lacking purpose reduce transparency, supporting the classification with strong to moderate mapping strength."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 103,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "63e441b8-5a13-4913-90b0-2df4aea4fdfd",
+    "processing_date": "2026-10-22T14:35:29.695081",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

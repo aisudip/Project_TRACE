@@ -1,0 +1,48 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_c2a8cbab-437d-46b1-83bf-08443f3ae6ed",
+    "filing_date": "2026-10-22T14:32:19.053092",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.9,
+    "narrative": "Customer Jacqueline Rodriguez, with high-risk rating, conducted multiple large wire transfers totaling $125,034.76 from her Business Checking account (CUST_0111_ACC_1) between July 29 and July 31, 2025. Incoming wire transfer of $76,517.25 on July 29 was followed by four outgoing wire transfers ranging from $8,906.70 to $14,019.62 within three days. This concentration of high-value wire transfers in a short period is consistent with structuring to avoid Bank Secrecy Act (BSA) reporting thresholds. Additionally, frequent high-value ACH credits and debits and large ATM withdrawals at branches support suspicious activity indicative of potential structuring.",
+    "key_indicators": [
+      "High concentration of large wire transfers in short period",
+      "Multiple high-value wire transfers totaling $125,034.76 within three days",
+      "Regulatory mapping strong match to structuring typology",
+      "Frequent high-value ACH credits and debits",
+      "Large cash withdrawals at branch ATMs"
+    ],
+    "ai_reasoning": "Strong evidence of multiple high-value wire transfers concentrated in a short timeframe consistent with structuring to avoid detection. Supporting indicators include large wire transfers totaling over $125,000 within three days and regulatory mapping with strong match to structuring typology. Moderate money laundering indicators exist but are secondary to the strong structuring pattern."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 91,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "3b139699-475b-4d48-83f2-5474eb21d7ba",
+    "processing_date": "2026-10-22T14:32:19.053092",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

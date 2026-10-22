@@ -1,0 +1,47 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_54056b61-df39-4186-8217-bda9cc292740",
+    "filing_date": "2026-10-22T14:42:15.613030",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "customer_since": "2021-09-05",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Patrick Williams, with accounts including Checking (opened 2022-12-27), Money Market (opened 2025-01-30), and a closed Business Checking (opened 2025-01-18), engaged in suspicious activity consistent with structuring. On August 2-4, 2025, multiple high-value ATM withdrawals and cash deposits occurred across several branches (e.g., $7,762.48 withdrawal at Branch Downtown Main, $7,212.80 deposit at Branch Eastside Center). Additionally, large ACH debits and wire transfers were made, including a $3,176.68 wire transfer on 2025-07-09 at Branch Airport Terminal. These transactions suggest attempts to evade Bank Secrecy Act reporting thresholds by structuring cash and electronic transactions across accounts and branches.",
+    "key_indicators": [
+      "High-value ATM withdrawals across multiple branches",
+      "Large cash deposits and withdrawals on the same day across branches",
+      "Multiple large ACH debit transactions with inconsistent counterparty information",
+      "High-value wire transfers including at an airport branch"
+    ],
+    "ai_reasoning": "Strong evidence of structuring includes multiple high-value ATM withdrawals and large cash deposits/withdrawals across branches on the same day, consistent with attempts to avoid reporting thresholds. While layering indicators exist, they are moderate and less definitive. No direct evidence supports sanctions or fraud classifications."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 96,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "dde8b592-0c37-4670-9044-58a09ff58699",
+    "processing_date": "2026-10-22T14:42:15.613030",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

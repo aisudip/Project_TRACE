@@ -1,0 +1,48 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_de5c24b2-c761-4906-9508-ed57a8930003",
+    "filing_date": "2026-10-22T14:48:07.529501",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Jacqueline Rodriguez, with accounts opened between 2022 and 2024, engaged in rapid large wire transfers totaling $126,034.76 within three days from July 29 to July 31, 2025, involving incoming and multiple outgoing wires from account CUST_0111_ACC_1. These transactions, combined with frequent high-value ACH debits and credits lacking counterparty or location details, and substantial cash withdrawals and debit purchases inconsistent with her reported occupation and income, indicate structuring activity. The pattern suggests attempts to evade Bank Secrecy Act (BSA) reporting thresholds. No supported legitimate explanations for these transaction patterns were identified, warranting this suspicious activity report.",
+    "key_indicators": [
+      "Rapid succession of large wire transfers within three days",
+      "Multiple high-value wire transfers totaling $126,034.76",
+      "Frequent high-value ACH transactions with missing counterparty/location data",
+      "High-value cash withdrawals and debit purchases inconsistent with typical spending",
+      "Lack of supported legitimate explanations for transaction patterns"
+    ],
+    "ai_reasoning": "Strong evidence of rapid large wire transfers within a short timeframe aligns with structuring typology. Multiple high-value transactions designed to potentially avoid detection are supported by regulatory mapping and transaction patterns. Moderate money laundering indicators exist but are secondary to the strong structuring pattern. Lack of legitimate explanations further supports this classification."
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)",
+      "12 CFR 21.11 (SAR Filing)",
+      "FinCEN SAR Instructions"
+    ],
+    "narrative_word_count": 96,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "af26a4d6-d4c9-4006-8586-bcb5dcf51c8d",
+    "processing_date": "2026-10-22T14:48:07.529501",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

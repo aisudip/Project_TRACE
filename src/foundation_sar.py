@@ -26,7 +26,7 @@ YOUR TASKS:
 
 import json
 import pandas as pd
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from typing import Dict, List, Optional, Any, Literal, Annotated
 from pydantic import BaseModel, ValidationInfo, Field, field_validator, AfterValidator, model_validator
 import uuid
@@ -57,11 +57,23 @@ def validate_date_format(v: str) -> str:
         raise ValueError("Date is required")
 
     try:
-        datetime.strptime(v, "%Y-%m-%d")
+        parsed_date = datetime.strptime(v, "%Y-%m-%d").date()
     except ValueError:
         raise ValueError(
-            "Date must be in YYYY-MM-DD format, e.g. 1985-03-15"
-        )
+            "Date must be a valid date in YYYY-MM-DD format, e.g. 1985-03-15"
+        ) from None
+
+    # Ensure exact format
+    if parsed_date.isoformat() != v:
+        raise ValueError("Date must be strictly in YYYY-MM-DD format")
+
+    # Plausibility: reject unrealistically old dates
+    if parsed_date.year < 1900:
+        raise ValueError("Date cannot be earlier than 1900")
+
+    # Plausibility: reject future dates
+    if parsed_date > date.today():
+        raise ValueError("Date cannot be in the future")
 
     return v
 
@@ -205,17 +217,17 @@ class TransactionData(BaseModel):
     amount: float = Field(..., description="Transaction amount (can be negative)")
     description: str = Field(..., description="Description like `Cash deposit at branch`")
     method: str = Field(..., description="Status like `Wire`, `ACH`, `ATM`, `Teller`")
-    counterparty: str = Field(None, description="Other party in transaction")
-    location: str = Field(None, description="Transaction location or branch")
+    counterparty: str|None = Field(None, description="Other party in transaction")
+    location: str|None = Field(None, description="Transaction location or branch")
 
     @field_validator('transaction_type')
     @classmethod
     def valid_transaction_type(cls, v):
-        transaction_types = ["cash_deposit", "wire_transfer", "atm_withdrawal","online_transfer", "online", "deposit", 
+        transaction_types = ["cash_deposit", "cash_withdrawal", "wire_transfer", "atm_withdrawal","online_transfer", "online", "deposit", 
                              "ach_debit", "ach_credit", "debit_purchase", "wire_transfer_debit", "wire_transfer_credit", 
                              "check_deposit","electronic", "direct_deposit", "test"]
         if v.lower() not in transaction_types:
-            raise ValueError(f'status must be one of: {transaction_types}')
+            raise ValueError(f'transaction type must be one of: {transaction_types}')
         return v
 
     @field_validator('method')
@@ -249,7 +261,7 @@ class CaseData(BaseModel):
     HINT: Check if not v: raise ValueError("message") for empty validation
     """
     # Implement the CaseData schema with validation
-    case_id: str = Field(default_factory=uuid4, description="Unique case identifier")
+    case_id: str = Field(default_factory=lambda: str(uuid4()), description="Unique case identifier")
     customer: CustomerData
     accounts: List[AccountData] = Field(..., description="List of customer's accounts")
     transactions: List[TransactionData] = Field(..., description="List of suspicious transactions")
@@ -385,10 +397,30 @@ class ExplainabilityLogger:
         self.log_file = log_file
         self.entries = []
     
-    def log_agent_action(self, agent_type: str, action: str, case_id: str, 
-                        input_data: Dict, output_data: Dict, reasoning: str, 
-                        execution_time_ms: float, success: bool = True, 
-                        error_message: Optional[str] = None):
+    def log_agent_action(
+        self,
+        agent_type: str,
+        action: str,
+        case_id: str,
+        input_data: Dict,
+        output_data: Dict,
+        reasoning: str,
+        execution_time_ms: float,
+        success: bool = True,
+        error_message: Optional[str] = None
+    ):
+        entry = {
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'case_id': str(case_id),
+            'agent_type': agent_type,
+            'action': action,
+            'input_summary': str(input_data),
+            'output_summary': str(output_data),
+            'reasoning': reasoning,
+            'execution_time_ms': execution_time_ms,
+            'success': success,
+            'error_message': error_message
+        }
         """Log an agent action with essential context
         
         IMPLEMENTATION STEPS:
@@ -401,26 +433,25 @@ class ExplainabilityLogger:
         HINT: Convert input_data and output_data to strings with str()
         """
         # Implement logging with structured entry creation and file writing
-        entry = {
-            'timestamp': datetime.now(timezone.utc).isoformat(),
-            'case_id': case_id,
-            'agent_type': agent_type,
-            'action': action,
-            'input_summary': str(input_data),
-            'output_summary': str(output_data),
-            'reasoning': reasoning,
-            'execution_time_ms': execution_time_ms,
-            'success': success,
-            'error_message': error_message
-        }
-
-        self.entries.append(entry)
 
         try:
-            with open(self.log_file, 'a', encoding="utf-8") as f:
-                f.write(json.dumps(entry) + '\n')
-        except Exception as e:
-            print(f"Error writing to log file {self.log_file}: {e}")
+            # Serialize before writing
+            serialized_entry = json.dumps(entry)
+
+            # Persist to JSONL file
+            with open(self.log_file, 'a', encoding='utf-8') as f:
+                f.write(serialized_entry + '\n')
+
+        except (TypeError, ValueError, OSError) as e:
+            raise RuntimeError(
+                f"Failed to persist audit log for "
+                f"case_id={case_id}, "
+                f"agent_type={agent_type}, "
+                f"action={action}: {e}"
+            ) from e
+
+        # Only add to memory after successful file write
+        self.entries.append(entry)
 
 # ===== IMPLEMENT DATA LOADER =====
 
@@ -449,11 +480,14 @@ class DataLoader:
     def __init__(self, explainability_logger: ExplainabilityLogger):
         # Store logger for audit trail
         self.logger = explainability_logger
-    
-    def create_case_from_data(self, 
-                            customer_data: Dict,
-                            account_data: List[Dict],
-                            transaction_data: List[Dict]) -> CaseData:
+
+
+    def create_case_from_data(
+        self,
+        customer_data: Dict,
+        account_data: List[Dict],
+        transaction_data: List[Dict]
+    ) -> CaseData:
         """Create a unified case object from fragmented AML data
 
         SUGGESTED STEPS:
@@ -489,19 +523,58 @@ class DataLoader:
         HINT: Calculate execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
         """
         # Implement complete case creation with error handling and logging
-        start_time = datetime.now()
+
+        start_time = datetime.now(timezone.utc)
         case_id = str(uuid.uuid4())
-        customer = CustomerData.model_validate(customer_data)
-        account_list = [AccountData.model_validate(acc) for acc in account_data if acc['customer_id'] == customer.customer_id]
-        account_ids = {acc.account_id for acc in account_list}
-        transaction_list = [TransactionData.model_validate(txn) for txn in transaction_data if txn['account_id'] in account_ids]
-        case_created_at = datetime.now(timezone.utc)
-        data_sources = {
-            'customer_source': f"csv_extract_{case_created_at.strftime('%Y%m%d')}",
-            'account_source': f"csv_extract_{case_created_at.strftime('%Y%m%d')}",
-            'transaction_source': f"csv_extract_{case_created_at.strftime('%Y%m%d')}"
-        }
+
+        # Track which record is being processed
+        record_type = "customer"
+        record_id = customer_data.get("customer_id", "UNKNOWN")
+
         try:
+            # 1. Validate customer
+            customer = CustomerData.model_validate(customer_data)
+
+            # 2. Validate customer's accounts
+            account_list = []
+
+            for acc in account_data:
+                record_type = "account"
+                record_id = acc.get("account_id", "UNKNOWN")
+
+                if acc["customer_id"] == customer.customer_id:
+                    account_list.append(
+                        AccountData.model_validate(acc)
+                    )
+
+            # 3. Identify customer account IDs
+            account_ids = {acc.account_id for acc in account_list}
+
+            # 4. Validate associated transactions
+            transaction_list = []
+
+            for txn in transaction_data:
+                record_type = "transaction"
+                record_id = txn.get("transaction_id", "UNKNOWN")
+
+                if txn["account_id"] in account_ids:
+                    transaction_list.append(
+                        TransactionData.model_validate(txn)
+                    )
+
+            # 5. Create case metadata
+            case_created_at = datetime.now(timezone.utc)
+
+            data_sources = {
+                "customer_source": f"csv_extract_{case_created_at:%Y%m%d}",
+                "account_source": f"csv_extract_{case_created_at:%Y%m%d}",
+                "transaction_source": f"csv_extract_{case_created_at:%Y%m%d}"
+            }
+
+            # 6. Create CaseData
+            record_type = "case"
+            record_id = case_id
+
             case = CaseData(
                 case_id=case_id,
                 customer=customer,
@@ -510,40 +583,55 @@ class DataLoader:
                 case_created_at=case_created_at,
                 data_sources=data_sources
             )
-            execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
+
+            # 7. Log success
+            execution_time_ms = (
+                datetime.now(timezone.utc) - start_time
+            ).total_seconds() * 1000
+
             self.logger.log_agent_action(
                 agent_type="DataLoader",
                 action="create_case",
                 case_id=case_id,
                 input_data={
-                    "customer_data": customer_data,
-                    "account_data": account_data,
-                    "transaction_data": transaction_data
+                    "customer_id": customer.customer_id,
+                    "account_ids": list(account_ids),
+                    "transaction_count": len(transaction_list)
                 },
                 output_data={"case_id": case_id},
-                reasoning="Successfully created CaseData object from input data.",
+                reasoning="Successfully created CaseData object.",
                 execution_time_ms=execution_time_ms,
                 success=True
             )
+
             return case
+
         except Exception as e:
-            execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
+
+            execution_time_ms = (
+                datetime.now(timezone.utc) - start_time
+            ).total_seconds() * 1000
+
             self.logger.log_agent_action(
                 agent_type="DataLoader",
                 action="create_case",
                 case_id=case_id,
                 input_data={
-                    "customer_data": customer_data,
-                    "account_data": account_data,
-                    "transaction_data": transaction_data
+                    "customer_id": customer_data.get("customer_id"),
+                    "record_type": record_type,
+                    "record_id": record_id
                 },
                 output_data={},
-                reasoning="Failed to create CaseData object due to validation error.",
+                reasoning="Failed to create CaseData object.",
                 execution_time_ms=execution_time_ms,
                 success=False,
-                error_message=str(e)
+                error_message=(
+                    f"Validation/processing failure for "
+                    f"{record_type} '{record_id}': {e}"
+                )
             )
-            raise e
+
+            raise
 
 
 # ===== HELPER FUNCTIONS (PROVIDED) =====
